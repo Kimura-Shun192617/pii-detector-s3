@@ -6,9 +6,7 @@ S3にアップロードされたファイル内のPII（個人識別情報）を
 - セキュリティ監査・データガバナンスの一環として、クラウドストレージ内のPIIの自動検出を実現できます。
 
 ## 🏗️ 構成
-go
-コピーする
-編集する
+```
 pii-detector-s3/
 ├── cmd/
 │   └── detector/              ← メイン実行ファイル（main.go）
@@ -20,6 +18,7 @@ pii-detector-s3/
 ├── go.mod
 ├── README.md                  ← 本ファイル
 └── architecture.png           ← アーキテクチャ図
+```
 
 ## 🔍 検出対象のPII
 - 以下のような日本国内で一般的な個人情報形式を、正規表現を用いて検出します。
@@ -35,28 +34,27 @@ pii-detector-s3/
 
 ## ⚙️ 使用方法
 1. 環境変数を設定（S3アクセス用）
-bash
-コピーする
-編集する
+```
 export AWS_ACCESS_KEY_ID=xxxxx
 export AWS_SECRET_ACCESS_KEY=xxxxx
 export AWS_REGION=ap-northeast-1
 export BUCKET_NAME=my-secure-bucket
 export FILE_KEY=uploads/invoice.pdf
+```
+
 2. 実行
-bash
-コピーする
-編集する
+```
 go run ./cmd/detector/main.go
+```
+
 3. 出力例
-bash
-コピーする
-編集する
+```
 [INFO] Fetching file from S3: uploads/invoice.pdf
 [INFO] Extracted text length: 10342 chars
 [WARN] Detected email: yamada.taro@example.com
 [WARN] Detected phone: 090-1234-5678
 [OK] PII detection completed.
+```
 
 ## 🔒 セキュリティ
 - S3は事前に **バージョニング・暗号化（SSE-S3 or KMS）**を有効化推奨。
